@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+   <title>TOC for a given element</title>
+   <link rel='stylesheet' href='jquery.jqTOC.css' type='text/css' />
+   <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+   <script type="text/javascript" src="jquery.jqTOC.js"></script>
+   <script language="JavaScript" type="text/javascript">
+      $(document).ready(function(){
+         $('body').toc();
+      });
+   </script>
+</head>
+
+<body>
+   <h1>jqTOC</h1>
+   <p>Creates a table of contents for all header elements within parent provided. (Based on original <a href="http://dimitarspassov.googlepages.com/jqpagecontent">jqPageContent by Dimitri Spassov</a>.)</p>
+   <p>Produces a fixed div box with the title "Content", by default in the top right of the browser window. When the box is clicked a new div will display a list of all H1, H2, H3 elements within scope of the parameter element. Each TOC element is a clickable link to the title in the document.</p>
+   <p>Start and end heading levels can be specified. All H1, H2, H3, is the default.</p>
+
+   <ul>
+      <li>Download the <a href="jqTOC.js">javascript</a> and the <a href="jqTOC.css">CSS</a>.</li>
+      <li>Check out the longer <a href="jqTOC_test.html">demo TOC</a>.</li>
+   </ul>
+
+   <h2>Call Sample</h2>
+   <p>Basic call, using defaults, will show all level 1,2,3 headings within an element with ID of "content".</p>
+   <pre>
+   $(document).ready(function(){
+      $('#content').toc();
+   });
+   </pre>
+
+   <h2>Parameters</h2>
+   <h3>Default Parameters</h3>
+   <pre>
+   tocWidth: 220,
+   tocTitle: 'Content',
+   tocStart: 1,
+   tocEnd  : 3,
+   tocContainer : 'toc_container',
+   tocAutoCLose : true
+   </pre>
+   <ul>
+      <li><b>tocWidth:</b> Numeric -- specifies the width of the content div in px.</li>
+      <li><b>tocTitle:</b> String -- the TOC title.</li>
+      <li><b>tocStart:</b> Numeric -- the starting header level. Thus a value of 2 will start building the TOC at, and including, H2.</li>
+      <li><b>tocEnd:</b> Numeric -- the ending header level. Thus a value of 4 will start building the TOC at, and including, H4.</li>
+      <li><b>tocContainer:</b> String -- the container DIV to use to hold the TOC. By default this will automatially be created. If you want to use an existing DIV, ensure that the DIV exists, and holds no inner elements (i.e., empty).</li>
+      <li><b>tocAutoCLose:</b> Boolean -- if TRUE will automatically close the TOC when clicking a link in the TOC. FASLE will leave the TOC open for further navigation.</li>
+   </ul>
+
+   <h3>Override Default Parameters</h3>
+   <p>Override the default(s) as below. Parameters can be in any order.</p>
+   <pre>
+   $(document).ready(function(){
+      $('#content').toc({
+         tocWidth:500,
+         tocTitle: "Table of Content",
+         tocStart: 2,
+         tocEnd: 10,
+         tocAutoClose: false
+      });
+   });
+   </pre>
+
+   <h2>Fixed Positioning</h2>
+   <p>Fixed positioning in IE7 and Firefox works. In IE5/6 it doesn't. The TOC solution implements some patches to permit fixed positioning in IE5/6. If you don't care for fixed positioning, or you don't need to support IE5/6, then you can remove the following code from the CSS file.</p>
+
+   <h3>CSS Cludges</h3>
+   <p>With the styling that follows everything works, except you now have two scrollbars. This css hides the original browser scrollbar. The first "*" is ignored by all non-IE5/6 browsers, as invalid.</p>
+   <pre>
+   * html {overflow-x:auto; overflow-y:hidden;}
+   </pre>
+
+   <p>Need to tell IE5/6 to position absolute, as that and relative is all it understands. Also, IE will float the TOC div over the vertical scrollbar, which looks tacky. The margin-right is not necessary for fixed positioning, but shifts the TOC to prevent the TOC overlapping the scrollbar.</p>
+   <pre>
+   * html #toc_container {position:absolute; margin-right:15px;}
+   </pre>
+   <p>The main part of the cludge. The padding is not required, but makes things look better after the zero margin is applied.</p>
+   <pre>
+   body {
+      margin:0;
+      padding:0 10px 0 10px;
+      height:100%;
+      overflow-y:auto;
+   }
+   </pre>
+
+   <h3>Stricter Validation</h3>
+   <p>You can replace the "* html" line in the CSS with this code in the header of your HTML file for stricter validation. Since we already use the 'star' techinque anyway, it's probably not worth using this stricter version.</p>
+   <pre>
+   &lt;!--[if lte IE 6]&gt;
+   &lt;style type="text/css"&gt;
+      html {overflow-x:auto; overflow-y:hidden;}
+   &lt;/style&gt;
+   &lt;![endif]--&gt;
+   </pre>
+   <h2>Known Issues</h2>
+   <ul>
+      <li>Long TOC lists do not provide a scroll bar, making it impossible to reach lower items if the viewport is smaller than the length of the list.</li>
+   </ul>
+</body>
+
+</html>
