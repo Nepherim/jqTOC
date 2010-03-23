@@ -2,10 +2,10 @@
 * html {overflow-x:auto; overflow-y:hidden;}
 * html #toc_container {position:absolute; margin-right:15px;}
 body {
-	margin:0; 
+	margin:0;
 	padding:0 10px 0 10px;
-	height:100%; 
-	overflow-y:auto; 
+	height:100%;
+	overflow-y:auto;
 }
 /* end fixes */
 
@@ -17,28 +17,28 @@ body {
    width:17em;
    background: gray;
 }
-#toc_header {
+.toc_header {
    background: #666;
    color: #fff;
    font-weight: bold;
    cursor: pointer;
    padding-left:10px;
 }
-#toc_content {
+.toc_content {
    border: 3px solid #666;
    padding: 0 20px 5px 20px;
    display: none;
    overflow: auto;
 }
-#toc_content a {
+.toc_content a {
    display: list-item;
    text-decoration: none;
    color: #ccc;
 }
-#toc_content a:hover {
+.toc_content a:hover {
    color: #fff;
 }
-#toc_content a.indent {
+.toc_content a.indent {
    list-style-type: circle;
 }
 .toc_top {

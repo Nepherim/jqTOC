@@ -2,7 +2,7 @@
 $.fn.jqTOC = function(settings) {
 
    function tocToggleDisplay(e){
-		$('#toc_content')[e.data.mode]();
+		$('#'+settings.tocContainer+' .toc_content')[e.data.mode]();
    }
    settings = $.extend({
       tocWidth: '220px',
@@ -20,20 +20,20 @@ $.fn.jqTOC = function(settings) {
       $('body').append('<div id="'+settings.tocContainer+'"></div>');
 
    $('#'+settings.tocContainer).css('width',settings.tocWidth).append(
-      (settings.tocTitle?'<div id="toc_header">'+ settings.tocTitle + '</div>':'') +
-      '<div id="toc_content"></div>'
+      (settings.tocTitle?'<div class="toc_header">'+ settings.tocTitle + '</div>':'') +
+      '<div class="toc_content"></div>'
    );
 
-   var t = $('#toc_content');
+   var t = $('#'+settings.tocContainer+' .toc_content');
    var headerLevel,headerId;
-   
+
 // Find the highest level heading used within the range tocStart..tocEnd. Prevents indenting when no higher level exists.
    var start=settings.tocEnd;
    this.children().each(function(i) {
       headerLevel = this.nodeName.substr(1);
       if(
-      	this.nodeName.match(/^H\d+$/) 
-      	&& headerLevel >= settings.tocStart 
+      	this.nodeName.match(/^H\d+$/)
+      	&& headerLevel >= settings.tocStart
       	&& headerLevel <= settings.tocEnd
       	&& this.nodeName.substr(1) < start
       ) {
@@ -44,12 +44,12 @@ $.fn.jqTOC = function(settings) {
 		}
 	});
 	settings.tocStart=start;
-	
+
    this.children().each(function(i) {
       headerLevel = this.nodeName.substr(1);
       if(
-         this.nodeName.match(/^H\d+$/) 
-         && headerLevel >= settings.tocStart 
+         this.nodeName.match(/^H\d+$/)
+         && headerLevel >= settings.tocStart
          && headerLevel <= settings.tocEnd
       ) {
          headerId = this.id || 'jqTOC_link' + i;
@@ -66,13 +66,13 @@ $.fn.jqTOC = function(settings) {
 
 	if (settings.tocShowOnClick) {
 	   if (settings.tocTitle) {
-	      $('#toc_header').bind('click', {mode: 'toggle'}, function(e){tocToggleDisplay(e);}); 
+	      $('#'+settings.tocContainer+' .toc_header').bind('click', {mode: 'toggle'}, function(e){tocToggleDisplay(e);});
 	   }
 	   if (settings.tocAutoClose) {
-         $('#toc_content a').bind('click', {mode: 'hide'}, function(e){tocToggleDisplay(e);}); 
+         $('#'+settings.tocContainer+' .toc_content a').bind('click', {mode: 'hide'}, function(e){tocToggleDisplay(e);});
       }
    } else {
-      $('#toc_content').show(); 
+      $('#'+settings.tocContainer+' .toc_content').show();
    }
    if (settings.tocTopLink) {
       $('.toc_top').bind('click', function(){window.scrollTo(0,0);});
