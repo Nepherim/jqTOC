@@ -1,3 +1,10 @@
+<?php if (!defined('PmWiki')) exit();
+/*  Copyright 2009 David Gilbert.
+    This file is jquery.jqTOC.js; you can redistribute it and/or modify it under the terms of the GNU General Public
+    License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
+
+    For documentation refer to: http://solidgone.org/Jqtoc
+*/
 (function($){
 $.fn.jqTOC = function(settings) {
 
